@@ -1,0 +1,133 @@
+{% extends 'school/admin/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">    
+        <div class="container-fluid" id="container-wrapper">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800"></h1>
+                <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/employee-registration/">Add Employee</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Employee List</li>
+                </ol>
+            </div>
+
+            <!-- Row -->
+            <div class="row">
+                <!-- DataTable with Hover -->
+                <div class="col-lg-12">
+                    <div class="card mb-4">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold ">Employee List</h6>
+                                </div>                              
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card-header flex-row justify-content-between" style="text-align: right;">
+                                    <i class="fas fa-hand-point-right"></i> <a class="collapse-item" href="/employee-registration/">Employee Registration</a>
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="table-responsive p-3">
+                            <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                                <thead class="thead-light">
+                                    <tr style="font-size:13px;">
+                                        <th>Employee Id</th>
+                                        <th>Name</th>
+                                        {% comment %} <th>Short Name</th> {% endcomment %}
+                                        {% comment %} <th>Employee Photo</th> {% endcomment %}
+                                        {% comment %} <th>Father Name</th> {% endcomment %}
+                                        {% comment %} <th>Mother Name</th> {% endcomment %}
+                                        <th>Designation</th>
+                                        {% comment %} <th>Qualification</th> {% endcomment %}
+                                        <th>Gender</th>
+                                        {% comment %} <th>Religion</th> {% endcomment %}
+                                        {% comment %} <th>Blood Group</th> {% endcomment %}
+                                        <th>Department</th>
+                                        <th>Mobile</th>
+                                        {% comment %} <th>Email address</th> {% endcomment %}
+                                        <th>Join Date</th>
+                                        {% comment %} <th>Date Of Birth</th> {% endcomment %}
+                                        {% comment %} <th>National ID</th> {% endcomment %}
+                                        {% comment %} <th>Basic Salary</th> {% endcomment %}
+                                        {% comment %} <th>Starting Salary</th> {% endcomment %}
+                                        <th>Present Address</th>
+                                        {% comment %} <th>Parmanent Address</th> {% endcomment %}
+                                        {% comment %} <th>Is Teacher?</th> {% endcomment %}
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size: 13px;color: black;">
+                                    {% for data in employee_list %}
+                                        <tr>
+                                            <td>{{data.employee_id}}</td>
+                                            <td style="width:100px !important;">{{data.employee_name}}</td>
+                                            {% comment %} <td>{{data.short_name}}</td> {% endcomment %}
+                                            {% comment %} <td><div class="user_image"><img src="/static/school/media/{{ data.emp_img }}" style="width:110px;height:60px;"></td> {% endcomment %}
+                                            {% comment %} <td>{{data.father_name}}</td> {% endcomment %}
+                                            {% comment %} <td>{{data.mother_name}}</td> {% endcomment %}
+                                            <td>{{data.get_desig_name_display}}</td>
+                                            {% comment %} <td>{{data.qualification}}</td> {% endcomment %}
+                                            <td>{{data.get_emp_gender_display}}</td>
+                                            {% comment %} <td>{{data.get_emp_religion_display}}</td> {% endcomment %}
+                                            {% comment %} <td>{{data.get_blood_group_display}}</td> {% endcomment %}
+                                            <td>{{data.dpt_name}}</td>
+                                            <td>{{data.emp_mobile}}</td>
+                                            {% comment %} <td>{{data.email_address}}</td> {% endcomment %}
+                                            <td>{{data.join_date}}</td>
+                                            {% comment %} <td>{{data.date_of_birth}}</td> {% endcomment %}
+                                            {% comment %} <td>{{data.national_id}}</td> {% endcomment %}
+                                            {% comment %} <td>{{data.basic_salary}}</td> {% endcomment %}
+                                            {% comment %} <td>{{data.starting_salary}}</td> {% endcomment %}
+                                            <td>{{data.present_address}}</td>
+                                            {% comment %} <td>{{data.permanent_address}}</td> {% endcomment %}
+                                            <td>
+                                                {% if data.status %}
+                                                    <p>Active</p>
+                                                {% else %}
+                                                    <p style="color:red;">Inactive</p>
+                                                {% endif %}
+                                            </td>
+                                            {% comment %} <td>
+                                                {% if data.status %}
+                                                    <p >Active</p>
+                                                {% else %}
+                                                    <p style="color:red;">Inactive</p>
+                                                {% endif %}
+                                            </td> {% endcomment %}
+                                            
+                                            <td>
+                                                {% comment %} <a href="/employeeapp/employee/523/edit-employee/" class="btn btn-default btn-sm listbtn"><i class="fas fa-edit"></i></a> {% endcomment %}
+                                                <a href="/remove-employee/{{data.id}}" onclick="return confirm('Are you sure to delete this Employee?')" class="btn btn-default btn-sm listbtn"><i class="far fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Scroll to top -->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<script src="{% static 'school/admin/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'school/admin/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'school/admin/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<!-- Page level custom scripts -->
+<script>
+    $(document).ready(function () {
+        $('#dataTableHover').DataTable(); // ID From dataTable with Hover
+    });
+</script>
+{% endblock %}

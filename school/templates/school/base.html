@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    {% load data_load %}
+    <title>{% block title %}  {% endblock %} </title>
+    {% for data in school_details|school|slice:"1" %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'school/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'school/css/bootstrap-grid.css' %}">
+    <link rel="stylesheet" href="{% static 'school/css/bootstrap-reboot.css' %}">
+    <link rel="stylesheet" href="{% static 'school/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'school/css/ihover.css' %}">
+    <link rel="stylesheet" href="{% static 'school/css/style.css' %}">
+
+    <!-- Owl Carusel -->
+    <link rel="stylesheet" href="{% static 'school/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'school/css/owl.theme.default.min.css' %}">
+
+</head>
+<body>
+    <header>
+        <div class="ak_top_header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2 social_menu">
+                        <ul style="float: left;">
+                            <li><a ><span style="color: #fff581;font-weight: bold; font-size: 15px;"  id="time"></span></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-8 top_header_pull">
+                        <ul>
+                            <li>
+                                <p>{{ data.slugan }}</p>
+                            </li>
+                            <li>
+                                <p> <i class="fa fa-phone"></i> Contact Us : {{ data.mobile }}</p>
+                            </li>
+                            <li>
+                                <p> <i class="fa fa-envelope-o"></i> Mail Us : {{ data.email }}</p>
+                            </li>
+                            <li><a href="/login/">Login</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2 social_menu">
+                        <ul>
+                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                            <li><a href=""><i class="fa fa-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="ak_main_nav_pull" id="navbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="site_logo">
+                            <a href="/"><img src="/static/school/media/{{ data.logo }}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="site_menu">
+                            <ul style="    padding-left: 71px;">
+                                <li><a href="/" class="active_menu">Home</a></li>
+
+                                <li><a href="#">About Us <i class="fa fa-angle-down"></i></a>
+                                    <ul>
+                                        <li><a href="/our-history/">History</a></li>
+                                        <li><a href="/institute/teachers/">Teacher's Profile</a></li>
+                                        <li><a href="/chairman-message/">Chairman Message</a></li>
+                                        <li><a href="/principal-message/">Principal's Message</a></li>
+                                        <li><a href="/institute/at-glance/">At a Glance</a></li>
+                                        <li><a href="/institute/why-study/">Why Study Bright Star</a></li>
+                                        <li><a href="/institute/eiin-number/">EIIN Number</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Admission <i class="fa fa-angle-down"></i></a>
+                                    <ul>
+                                        <li><a href="/admission/">Admission Form </a></li>
+                                        <li><a href="/exam-regulations/">Exam Regulations</a></li>
+                                        <li><a href="/admission-suspension/">Admission Suspension</a></li>
+                                        <li><a href="/admission-information/">Admission Information</a></li>
+                                    </ul>
+                                </li>
+                                
+                                <li><a href="#">Facilities <i class="fa fa-angle-down"></i></a>
+                                    <ul>
+                                        <li><a href="/institute/library/">Library</a></li>
+                                        <li><a href="/institute/hostel/">Hostel</a></li>
+                                        <li><a href="/institute/lab/">Lab</a></li><!-- Sub menu-->
+                                        <li><a href="/institute/idcard/">Id Card</a></li>
+                                        
+                                    </ul>
+                                </li>
+                               
+                                <li><a href="">Academic <i class="fa fa-angle-down"></i></a>
+                                    <ul>
+                                        <li><a href="">School Fee </a></li>
+                                        <li><a href="">Book List</a></li>
+                                        <li><a href="">Class Routine</a></li>
+                                        <li><a href="">Exam Routine</a></li>
+                                        <li><a href="">Academic Calendar</a></li>
+                                        <li><a href="">List of Holidays</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="">Result <i class="fa fa-angle-down"></i></a>
+                                    <ul>
+                                        <li><a href="">Result</a></li>
+                                        <li><a href="/result-history/">Results History</a></li>
+                                        <li><a href="">Admission Result</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="">Administration <i class="fa fa-angle-down"></i></a>
+                                    <ul>
+                                        <li><a href="/all-notices/">Notice</a></li>
+                                        <li><a href="/job-vacancy/">Job & Vacancy </a></li>
+                                        <li><a href="/institute/managemeng-committee/">Management Committee</a></li>
+                                    </ul> 
+                                </li>
+                                 <li><a href="">Gallery <i class="fa fa-angle-down"></i></a>
+                                    <ul>
+                                        <li><a href="/gallery/photo-gallery/">Photo Gallery </a></li>
+                                        <li><a href="/gallery/video-gallery/">Video Gallery  </a></li>
+                                    </ul> 
+                                </li>
+                                <li><a href="/contact-us/">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="site_menu">
+                            <ul style="padding-left:10px;">
+                                <li><a href="/login/">Login</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    {% block content %}
+
+    {% endblock %}
+
+   
+    <footer>
+        <p>© Copyright 2020 || Designed and Developed by <a href="#">Sujon, Atiqullah, Mowsumi </a></p>
+    </footer>
+    
+    
+        <script src="{% static 'school/js/jquery.min.js' %}"></script>
+        <script src="{% static 'school/js/bootstrap.js' %}"></script>
+        <script src="{% static 'school/js/owl.carousel.min.js' %}"></script>
+        <script> 
+            $(document).ready(function() {
+                $("#owl-demo").owlCarousel({
+                    autoPlay: 3000, //Set AutoPlay to 3 seconds
+                    items : 5,
+                    itemsDesktop : [1199,3],
+                    itemsDesktopSmall : [979,3],
+                    autoplay:true,
+                    autoplayTimeout:3000,
+                    autoplayHoverPause:true
+                });
+
+            });
+
+            {% comment %} Live Time {% endcomment %}
+            $(document).ready(function() {
+                displayClock();
+            });
+            
+            function displayClock(){
+                var display = new Date().toLocaleTimeString();
+                $("#time").html(display);
+                setTimeout(displayClock, 1000); 
+            }
+        </script>
+        
+        <script>
+            window.onscroll = function() {myFunction()};
+            
+            var navbar = document.getElementById("navbar");
+            var sticky = navbar.offsetTop;
+            
+            function myFunction() {
+                if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky")
+                } else {
+                navbar.classList.remove("sticky");
+                }
+            }
+            $(".site_menu ul li").hover(function(){
+                $(this).find('ul').stop('ul').slideToggle(200);
+            });
+        </script>
+    </body>
+    {% endfor %}
+    </html>
