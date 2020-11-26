@@ -505,36 +505,36 @@ class Student(models.Model):
     # st_religion           = models.ForeignKey(Religion, on_delete=models.CASCADE)
     
     genders_types         = (
-        ('1',  'Male'),
-        ('2',  'Female'),
-        ('3',  'Others'),
+        ('Male',  'Male'),
+        ('Female',  'Female'),
+        ('Others',  'Others'),
     )
-    st_gender             = models.CharField(max_length=1, choices = genders_types)
+    st_gender             = models.CharField(max_length=20, choices = genders_types)
     religion_types        = (
-        ('1',  'Islam'),
-        ('2',  'Christianity'),
-        ('3',  'Hinduism'),
-        ('4',  'Buddhism'),
-        ('5',  'Chinese traditional religion'),
-        ('6',  'African traditional religions'),
+        ('Islam',  'Islam'),
+        ('Christianity',  'Christianity'),
+        ('Hinduism',  'Hinduism'),
+        ('Buddhism',  'Buddhism'),
+        ('Chinese traditional religion',  'Chinese traditional religion'),
+        ('African traditional religions',  'African traditional religions'),
     )
-    st_religion             = models.CharField(max_length=1, choices = religion_types)   
+    st_religion             = models.CharField(max_length=30, choices = religion_types)   
     date_of_birth           = models.DateField(auto_now_add=False)
     birth_certificate_no    = models.CharField(max_length=30, blank=True)    
     # nationality             = models.CharField(max_length=30, blank=True)
     st_mobile               = models.CharField(max_length=15, blank=True)
     group_type = (
-        ('1', 'N/A'),
-        ('2', 'A+'),
-        ('3', 'A-'),
-        ('4', 'B+'),
-        ('5', 'B-'),
-        ('6', 'AB+'),
-        ('7', 'AB-'),
-        ('8', 'O+'),
-        ('9', 'O-'),
+        ('N/A', 'N/A'),
+        ('A+', 'A+'),
+        ('A-', 'A-'),
+        ('B+', 'B+'),
+        ('B-', 'B-'),
+        ('AB+', 'AB+'),
+        ('AB-', 'AB-'),
+        ('O+', 'O+'),
+        ('O-', 'O-'),
     )
-    st_blood_group          = models.CharField(max_length=2, choices=group_type,blank=True) 
+    st_blood_group          = models.CharField(max_length=20, choices=group_type,blank=True) 
     st_email                = models.EmailField(max_length=90, blank=True)
     st_roll                 = models.IntegerField(default=0)
     st_reg                  = models.IntegerField(default=0)
@@ -574,12 +574,12 @@ class Student(models.Model):
     tc_date                 = models.DateField(auto_now_add=False, null=True, blank=True)
     new_student             = models.BooleanField(default=1)
     student_types = (
-        ('1', 'General student'),
-        ('2', 'Full fee scholarship'),
-        ('3', 'Half fee scholarship'),
-        ('4', 'Old student'),
+        ('General student', 'General student'),
+        ('Full fee scholarship', 'Full fee scholarship'),
+        ('Half fee scholarship', 'Half fee scholarship'),
+        ('Old student', 'Old student')
     )
-    student_type            = models.CharField(max_length=1, choices=student_types, blank=True)   
+    student_type            = models.CharField(max_length=20, choices=student_types, blank=True)   
     insert_date             = models.DateTimeField(auto_now_add=True)
     last_update             = models.DateTimeField(auto_now=True)
     insert_by               = models.IntegerField(default=0)
@@ -714,5 +714,30 @@ class MarkDistribution(models.Model):
     class Meta:
         verbose_name = "Mark Distribution"
         verbose_name_plural = "Mark Distributions"
+
+
+class Result(models.Model):
+    student                   = models.ForeignKey(Student, on_delete=models.CASCADE)
+    class_name                = models.ForeignKey(ClassInfo, on_delete=models.CASCADE)
+    shift_name                = models.ForeignKey(Shift, on_delete=models.CASCADE)
+    bangla                    = models.IntegerField(default=0)
+    bangla_2nd                = models.IntegerField(default=0)
+    english                   = models.IntegerField(default=0)
+    english_2nd               = models.IntegerField(default=0)
+    mathematics               = models.IntegerField(default=0)
+    general_science           = models.IntegerField(default=0)
+    bangladesh_global_studies = models.IntegerField(default=0)
+    islamic_studies           = models.IntegerField(default=0)
+    hindu_studies             = models.IntegerField(default=0)
+    ict                       = models.IntegerField(default=0)
+    agriculture_studies       = models.IntegerField(default=0)
+    status                    = models.BooleanField(default=1)
+
+    def __str__(self):
+        return str(self.class_name)
+
+    class Meta:
+        verbose_name = "Result"
+        verbose_name_plural = "Resultes"
 
 

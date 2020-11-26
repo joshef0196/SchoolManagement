@@ -22,7 +22,7 @@
         <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard/">
             <div class="sidebar-brand-icon">
-            <img src="/static/school/media/{{ data.logo }}">
+            <img src="{% static 'school/media/images/company_info/logo_nKMaIiI.png' %}">
             </div>
             {% comment %} <div class="sidebar-brand-text mx-3">Bright Star School</div> {% endcomment %}
         </a>
@@ -87,6 +87,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="/mark-distribution/">Mark Distribution</a>
                     <a class="collapse-item" href="/mark-distribution-list/">Mark Distribution List</a>
+                    <a class="collapse-item" href="/student-exam-marks-entry/">Exam Marks Entry</a>
                 </div>
             </div>
         </li>
@@ -98,9 +99,8 @@
             </a>
             <div id="report" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/employee-registration/">Class Wise Report</a>
+                <a class="collapse-item" href="/class-wise-report/">Class Wise Report</a>
                 <a class="collapse-item" href="/employee-list/">Subject Wise Report</a>
-                <a class="collapse-item" href="/add-class-teacher/">Shift Wise Report</a>
             </div>
             </div>
         </li>

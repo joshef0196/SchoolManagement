@@ -60,6 +60,7 @@ urlpatterns = [
     path('teacher-list/', views.teacher_list),
     path('class-teacher-assign-delete/<int:id>/', views.delete_teacher),
 
+    path('student-exam-marks-entry/', views.student_exam_mark),
     path('mark-distribution/', views.mark_distribution),
     path('mark-distribution-list/', views.mark_distribution_list),
     path('remove-mark-distribution/<int:id>', views.delete_mark_distribution),
@@ -68,6 +69,9 @@ urlpatterns = [
     path('api/', views.apiTest),
 
     # Export in Excel
-    
     path('export-student-sheet/', views.export_student_list),
+
+    # report 
+    path('class-wise-report/', views.class_wise_report),
+    
 ]

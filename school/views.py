@@ -11,6 +11,8 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.db.models import Sum
 from django.db.models import F,Q
+from school.utils import render_to_pdf
+
 # Create your views here.
 def index_page(request):
     welcome_message  = models.AcademicMessage.objects.filter( message_for = 1 ).first()
@@ -776,6 +778,46 @@ def add_class_teacher(request):
     }
     return render(request, 'school/admin/add_class_teacher.html', context )   
 
+def student_exam_mark(request):
+    if not request.session['employee_id']:
+        return redirect('/login/')
+
+    student = models.Student.objects.filter(status = True)
+    class_list = models.ClassInfo.objects.filter(status = True)
+    shift_list = models.Shift.objects.filter(status = True)
+
+    if request.method == 'POST':
+        student                    = request.POST['student']
+        class_name                 = request.POST['class_name']
+        shift_name                 = request.POST['shift_name']
+        bangla                     = request.POST['bangla']
+        bangla_2nd                 = request.POST['bangla_2nd']
+        english                    = request.POST['english']
+        english_2nd                = request.POST['english_2nd']
+        mathematics                = request.POST['mathematics']
+        general_science            = request.POST['general_science']
+        bangladesh_global_studies  = request.POST['bangladesh_global_studies']
+        islamic_studies            = request.POST['islamic_studies']
+        hindu_studies              = request.POST['hindu_studies']
+        ict                        = request.POST['ict']
+        agriculture_studies        = request.POST['agriculture_studies']
+        if models.Result.objects.create(
+                student_id = student, class_name_id = class_name, shift_name_id = shift_name, 
+                bangla = bangla, bangla_2nd = bangla_2nd, english = english, english_2nd =english_2nd, 
+                mathematics = mathematics, general_science =general_science, bangladesh_global_studies =bangladesh_global_studies, islamic_studies =islamic_studies,
+                hindu_studies =hindu_studies, ict =ict, agriculture_studies =agriculture_studies
+            ):
+            messages.success(request,"Exam Mark Entry Successful.")
+        else:
+            messages.error(request,"Please Input Valid Value.")
+            
+    context={
+        'student':student,
+        'class_list':class_list,
+        'shift_list':shift_list,
+    }
+    return render(request, 'school/admin/report/student_exam_mark.html', context )   
+
 def teacher_list(request):
     if not request.session['employee_id']:
         return redirect('/login/')
@@ -899,7 +941,7 @@ def export_student_list(request):
                     worksheet.write('AA' + str(count), str(data.parmanent_address))
                     worksheet.write('AB' + str(count), str(data.tc_no))
                     worksheet.write('AC' + str(count), str(data.student_type))
-                    worksheet.write('AD' + str(count), str(data.status))
+                    worksheet.write('AD' + str(count), str('Active' if data.status else 'Inactive'))
                     count += 1
                 workbook.close()
             return download_excel_sheet(file_name)
@@ -919,3 +961,41 @@ def download_excel_sheet(file_name):
             return response
     raise Http404
 
+
+
+# Report 
+
+def class_wise_report(request):
+    if not request.session['employee_id']:
+        return redirect('/login/')
+
+    class_list   = models.ClassInfo.objects.filter(status = True)
+    shift_list   = models.Shift.objects.filter(status = True)
+    school_info  = models.SchoolProfile.objects.filter(status = True).first()
+
+    if request.method == "POST":
+        class_name    = int(request.POST['class_name'])
+        shift_name    = int(request.POST['shift_name'])
+
+        class_wise_report   = models.Result.objects.filter( class_name_id = class_name, shift_name_id = shift_name)
+        context = {
+            'class_list':class_list,
+            'shift_list':shift_list,
+            'class_name':class_name,
+            'shift_name':shift_name,
+            'school_info':school_info,
+            'class_wise_report':class_wise_report,
+        }
+        if class_wise_report:      
+            pdf = render_to_pdf('school/admin/report/class_wise_report_pdf.html',context)
+            return HttpResponse(pdf, content_type='application/pdf')
+        else:
+            context = {
+                'class_list':class_list,
+                'shift_list':shift_list,
+                'class_name':class_name,
+                'shift_name':shift_name,
+            }
+            messages.error(request, "No Data Found!")
+            return render(request, 'school/admin/report/class_wise_report.html', context)
+    return render(request, 'school/admin/report/class_wise_report.html',{"class_list" : class_list, 'shift_list':shift_list})

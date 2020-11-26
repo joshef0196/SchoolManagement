@@ -98,5 +98,6 @@ admin.site.register(models.Student, StudentAdmin)
 admin.site.register(models.EmployeeList)
 admin.site.register(models.TeacherList)
 admin.site.register(models.MarkDistribution)
+admin.site.register(models.Result)
 
 
