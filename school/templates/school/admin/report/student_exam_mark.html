@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="card-header flex-row justify-content-between" style="text-align: right;">
-                                <i class="fas fa-hand-point-right"></i> <a class="collapse-item" href="/mark-distribution/">Mark Distribution List</a>
+                                <i class="fas fa-hand-point-right"></i> <a class="collapse-item" href="/mark-distribution-list/">Mark Distribution List</a>
                             </div>  
                             
                         </div>
@@ -46,7 +46,7 @@
                                 <div class="col-lg-4">                                     
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Student</label>
-                                        <select class="form-control" name="student" required>
+                                        <select class="form-control" id="category_id" name="student" required>
                                             {% for data in student %}
                                                 <option value="{{ data.id }}">{{ data.st_first_name }}({{data.student_id}})</option>
                                             {% endfor %}
@@ -63,6 +63,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                
                                 <div class="col-lg-4">                                     
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Shift</label>

@@ -63,7 +63,7 @@ class ContactAdmin(admin.ModelAdmin):
     date_hierarchy = 'message_date'
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display    = ['st_first_name', 'student_id','status']
+    list_display    = ['st_first_name','class_name', 'student_id','status']
 
 
 class AdminSubject(admin.ModelAdmin):

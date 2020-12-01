@@ -1,6 +1,6 @@
 
 from django.urls import path
-from . import views
+from . import views, test_api as obj
 urlpatterns = [
     path('', views.index_page),
     path('our-history/', views.our_history),
@@ -35,7 +35,8 @@ urlpatterns = [
     path('result-history/', views.result_history),
     path('login/', views.login),
     path('logout/', views.admin_logout),
-
+    path('search-result/', views.search_result),
+    # path('student/class-load/',views.load_student_class),
     # Api
     # path('api/', views.test_api),
 
@@ -73,5 +74,8 @@ urlpatterns = [
 
     # report 
     path('class-wise-report/', views.class_wise_report),
+
+    # API
+    path('apps/student-list', obj.student_list),
     
 ]

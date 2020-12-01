@@ -720,6 +720,7 @@ class Result(models.Model):
     student                   = models.ForeignKey(Student, on_delete=models.CASCADE)
     class_name                = models.ForeignKey(ClassInfo, on_delete=models.CASCADE)
     shift_name                = models.ForeignKey(Shift, on_delete=models.CASCADE)
+    # mark                      = models.ForeignKey(MarkDistribution, on_delete=models.CASCADE, blank = True, null = True)
     bangla                    = models.IntegerField(default=0)
     bangla_2nd                = models.IntegerField(default=0)
     english                   = models.IntegerField(default=0)

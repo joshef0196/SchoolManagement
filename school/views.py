@@ -10,7 +10,7 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.db.models import Sum
-from django.db.models import F,Q
+from django.db.models import F,Q,Count
 from school.utils import render_to_pdf
 
 # Create your views here.
@@ -350,6 +350,40 @@ def scout_page(request):
     }
     return render(request, 'school/scout_page.html', context)   
 
+def search_result(request):
+    class_list = models.ClassInfo.objects.filter(status = True)
+    year_list  = models.Years.objects.filter(status = True)
+    if request.method == "POST":
+        roll        = request.POST['roll']
+        class_obj  = int(request.POST['class'])
+        year        = int(request.POST['year'])
+
+        result   = models.Result.objects.filter( student_id__st_roll = roll, class_name_id = class_obj, student_id__running_year = year).first()
+        context = {
+            'result':result,
+            'class_list':class_list,
+            'year_list':year_list,
+            'roll':roll,
+            'class_obj':class_obj,
+            'year':year,
+        }
+        if result:      
+            return render(request, 'school/search_result.html', context) 
+        else:
+            messages.error(request,"Please Input Valid Value.")
+            return render(request, 'school/search_result.html', context)  
+    context={
+        'class_list':class_list,
+        'year_list':year_list,
+    }
+
+    return render(request, 'school/search_result.html', context)   
+
+# def load_student_class(request):
+#     class_std = models.Result.objects.filter(student_id = int(request.GET.get('category_id'))).first()
+
+#     return render(request, 'school/admin/load_product.html',{'product_list':product_list})
+
 # API
 from .serializers import JobSerializer
 
@@ -367,15 +401,18 @@ def dashboard(request):
     if not request.session['employee_id']:
         return redirect('/login/')
 
-    total_student       = models.Student.objects.all().count()
+    total_student       = models.Student.objects.filter(status = True).count()
     total_employees     = models.EmployeeList.objects.all().count()
     total_teacher       = models.EmployeeList.objects.filter(is_teacher = True).count()
     new_student         = models.Student.objects.filter(new_student = True).count()
+    region_emp_list  = models.Student.objects.values('class_name_id__class_name').filter(status = True).annotate(region_emp_count = Count('class_name')).order_by('class_name')
+
     context={
         'total_student':total_student,
         'total_employees':total_employees,
         'total_teacher':total_teacher,
         'new_student':new_student,
+        'region_emp_list':region_emp_list,
     }
     return render(request, 'school/admin/index.html', context)   
 
@@ -808,6 +845,7 @@ def student_exam_mark(request):
                 hindu_studies =hindu_studies, ict =ict, agriculture_studies =agriculture_studies
             ):
             messages.success(request,"Exam Mark Entry Successful.")
+            return redirect("/student-exam-marks-entry/")
         else:
             messages.error(request,"Please Input Valid Value.")
             
