@@ -91,31 +91,31 @@
                 <thead>
                     <tr style="font-size:12px;">
                         <th scope="col">Bangla</th>
-                        <th scope="col">Bangla 2nd</th>
+                        {% if result.bangla_2nd %}<th scope="col">Bangla 2nd</th>{% endif %}
                         <th scope="col">English</th>
-                        <th scope="col">English 2nd</th>
+                        {% if result.english_2nd %}<th scope="col">English 2nd</th>{% endif %}
                         <th scope="col">Mathematics</th>
-                        <th scope="col">General Science</th>
-                        <th scope="col">Bangladesh Global Studies</th>
-                        <th scope="col">Islamic Studies</th>
-                        <th scope="col">Hindu Studies</th>
-                        <th scope="col">ICT</th>
-                        <th scope="col">Agriculture Studies</th>
+                        {% if result.general_science %}<th scope="col">General Science</th>{% endif %}
+                        {% if result.bangladesh_global_studies %}<th scope="col">Bangladesh Global Studies</th>{% endif %}
+                        {% if result.islamic_studies %}<th scope="col">Islamic Studies</th>{% endif %}
+                        {% if result.hindu_studies %}<th scope="col">Hindu Studies</th>{% endif %}
+                        {% if result.ict %}<th scope="col">ICT</th>{% endif %}
+                        {% if result.agriculture_studies %}<th scope="col">Agriculture Studies</th>{% endif %}
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>{{result.bangla}}</td>
-                        <td>{{result.bangla_2nd}}</td>
+                        {% if result.bangla_2nd %}<td>{{result.bangla_2nd}}</td>{% endif %}
                         <td>{{result.english}}</td>
-                        <td>{{result.english_2nd}}</td>
+                        {% if result.english_2nd %}<td>{{result.english_2nd}}</td>{% endif %}
                         <td>{{result.mathematics}}</td>
-                        <td>{{result.general_science}}</td>
-                        <td>{{result.bangladesh_global_studies}}</td>
-                        <td>{{result.islamic_studies}}</td>
-                        <td>{{result.hindu_studies}}</td>
-                        <td>{{result.ict}}</td>
-                        <td>{{result.agriculture_studies}}</td>
+                        {% if result.general_science %}<td>{{result.general_science}}</td>{% endif %}
+                        {% if result.bangladesh_global_studies %}<td>{{result.bangladesh_global_studies}}</td>{% endif %}
+                        {% if result.islamic_studies %}<td>{{result.islamic_studies}}</td>{% endif %}
+                        {% if result.hindu_studies %}<td>{{result.hindu_studies}}</td>{% endif %}
+                        {% if result.ict %}<td>{{result.ict}}</td>{% endif %}
+                        {% if result.agriculture_studies %}<td>{{result.agriculture_studies}}</td>{% endif %}
                     </tr>
                 </tbody>
             </table>
